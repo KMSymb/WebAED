@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="../CSSFile/semantics.css">
+        <link rel="stylesheet" href="../CSSFile/guidePage.css">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+        <title>Document</title>
+        <style>
+            .CPRButton{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border: none;
+                height: 80%;
+                width: 100%;
+                font-size: 33px;
+                color: white;
+                text-decoration: none;
+                background-color: #E43A3A; /* 버튼의 배경색 */
+                border-radius: 20px; /* 모서리 둥글게 */
+                transition: background-color 0.3s ease;
+            }
+
+            .CPRButton:hover{
+                background-color: #B62E2E;
+            }
+
+            .image{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-grow: 1;
+            }
+
+            #manual {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 80vh;
+                background-color: white;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+                transform: translateY(100%);
+                overflow-y: auto;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            
+            #manual.active {
+                transform: translateY(0);
+            }
+
+            .manualHeader{
+                display: flex;
+            }
+            .mHeaderItem1{
+                display: flex;
+                flex-grow: 1;
+            }
+            .mHeaderItem2{
+                display: flex;
+                justify-content: center;
+                font-size: 30px;
+                align-items: center;
+                text-align: center;
+                flex-grow: 4;
+            }
+            .mHeaderItem3{
+                display: flex;
+                flex-grow: 1;
+            }
+
+            .manualMain{
+                height: 80%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .manualFooter1{
+                margin-left: 25%;
+                margin-right: 25%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .manualFooter2{
+                margin-left: 15%;
+                margin-right: 15%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .manualFooter1 button{
+                border : 2px solid black;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                padding-top: 6px;
+                display: inline-block;
+                text-align: center;
+            }
+
+            .manualFooter2 button{
+                border : 2px solid black;
+                border-radius: 50%;
+                font-size: 30px;
+            }
+
+            @media (hover:none) and (pointer:coarse) {
+                .manualFooter1 button:active {
+                    background-color: aqua;
+                }
+                .manualFooter2 button:active {
+                    background-color: aqua;
+                }
+            }
+
+            @media (hover:hover) and (pointer:fine) {
+                .manualFooter1 button:hover {
+                    background-color: aqua;
+                }
+                .manualFooter2 button:hover {
+                    background-color: aqua;
+                }
+            }
+            .cancelImg{
+                width: 20px;
+                height: 20px;
+            }
+            .closeButton{
+                background-color: white;
+                border: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            심정지 환자 발생시 메뉴얼
+        </header>
+        <main>
+            <section class="guideSection">
+                <div class="guideTitle">
+                    <div class="titleHome"><a href="mainPage.html"><img src="../media/icon_home.png" width="30px"></a></div>
+                    <div class="titleText">심폐소생술</div>
+                    <div class="titleEmpty"></div>
+                </div>
+
+                <div class="guideContent">
+                    <div class="nonExplanation">
+                        <button class="CPRButton" id="show-button">
+                            <img src="../media/icon_CPR.png" width="60%">
+                            심폐소생술 시작하기
+                        </button>
+                    </div>
+                    
+                    <div class="explanation">AED가 도착할 때까지 심폐소생술을 실행합니다<br>(AED가 없다면 계속 반복)</div>
+                </div>
+
+                <div class="guideButton">
+                    <a href="guidePage_3.html" class="button_prev">이전</a>
+                    <a href="guidePage_5.html" class="button_next">다음</a>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>긴급 연락처: <a href='tel:119'>119</a> | 의료 긴급 상황: <a href='tel:1339'>1339</a></p>
+        </footer>
+
+        <div id="manual">
+            <div class="manualHeader">
+                <div class="mHeaderItem1"></div>
+                <div class="mHeaderItem2">심폐소생술 가이드라인</div>
+                <div class="mHeaderItem3"><button class = 'closeButton' id ='close-button'><img class="cancelImg" src="../media/icon_cancel.png"></button></div>
+            </div>
+            <div class="manualMain">
+                <img id="image" src="../media/AED_guide1.jpg" height="80%">
+                <div id="subtitle" style="width: 60%; text-align: center;"></div>
+            </div>
+
+            <div class="manualFooter1">
+                <button id="play-button"><img src="../media/icon_playbutton_arrowhead.png" width="25" height="25" style="padding-left:3px;"></button>
+                <button id="pause-button"><img src="../media/icon_pause.png" width="30" height="30"></button>
+            </div>
+            
+            <div class="manualFooter2">
+                <button id="pageOne">1</button>
+                <button id="pageTwo">2</button>
+                <button id="pageThree">3</button>
+                <button id="pageFour">4</button>
+                <button id="pageFive">5</button>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const pageOneButton = document.getElementById('pageOne');
+                const pageTwoButton = document.getElementById('pageTwo');
+                const pageThreeButton = document.getElementById('pageThree');
+                const pageFourButton = document.getElementById('pageFour');
+                const pageFiveButton = document.getElementById('pageFive');
+
+                const playButton = document.getElementById('play-button');
+                const pauseButton = document.getElementById('pause-button');
+                const prevCPRButton = document.getElementById('prevCPR-button');
+                const nextCPRButton = document.getElementById('nextCPR-button');
+                const showButton = document.getElementById('show-button');
+                const closeButton = document.getElementById('close-button');
+                const manual = document.getElementById('manual');
+                const subtitleDiv = document.getElementById('subtitle');
+
+                const audioFiles = [
+                    '../media/CPR_Audio_1.mp3', 
+                    '../media/CPR_Audio_2.mp3',
+                    '../media/CPR_Audio_3.mp3',
+                    '../media/CPR_Audio_4.mp3',
+                    '../media/CPR_Audio_5.mp3',
+                    '../media/CPR_Audio_6.mp3',
+                ];
+
+                const imageFiles = [
+                    '../media/CPR_guide1.png',
+                    '../media/CPR_guide2.png',
+                    '../media/CPR_guide2.png',
+                    '../media/CPR_guide3.png',
+                    '../media/CPR_guide3.png',
+                    '../media/CPR_guide4.png',
+                ];
+
+                const subtitleFiles = [
+                    '',
+                    '환자의 머리를 기울이고 턱을 올려서 기도를 열어줍니다',
+                    '약 10초간 호흡이 있는지 확인합니다.',
+                    '환자의 가슴뼈 아래쪽 지점을 손바닥 뒷꿈치로 신호에 따라 30회 압박합니다.',
+                    '압박을 시작합니다',
+                    '기도를 열고 보통의 호흡으로 2번, 1초간 숨을 불어 넣어줍니다. 이때 가슴이 올라오는것을 확인합니다.'
+                ];
+
+                let currentAudioIndex = 0;
+                let audio = new Audio();
+                let isPlaying = false;
+                let isRegression = false;
+                let timeoutId = null;
+                let four_five_pause = false;
+
+                // 오디오 재생 종료 시 다음 오디오 재생
+                audio.addEventListener('ended', function() {
+                    if(currentAudioIndex == 3){
+                        audio.pause();
+                        four_five_pause = true;
+                    }
+                    else if(currentAudioIndex == 5){
+                        currentAudioIndex = 4;
+                        isRegression = true;
+                        playNextAudio();
+                    }
+                    else{
+                        currentAudioIndex++;
+                        playNextAudio();
+                    }
+                    
+                });
+                
+                function clearButtonColor(num){
+                    if(num == -1){
+                        pageOneButton.style.backgroundColor = 'white';
+                        pageTwoButton.style.backgroundColor = 'white';
+                        pageThreeButton.style.backgroundColor = 'white';
+                        pageFourButton.style.backgroundColor = 'white';
+                        pageFiveButton.style.backgroundColor = 'white';
+                    }
+
+                    else if(num % 6 == 1){
+                        pageTwoButton.style.backgroundColor = 'white';
+                        pageThreeButton.style.backgroundColor = 'white';
+                        pageFourButton.style.backgroundColor = 'white';
+                        pageFiveButton.style.backgroundColor = 'white';
+                    }
+                    else if(num % 6 == 2){
+                        pageOneButton.style.backgroundColor = 'white';
+                        pageThreeButton.style.backgroundColor = 'white';
+                        pageFourButton.style.backgroundColor = 'white';
+                        pageFiveButton.style.backgroundColor = 'white';
+                    }
+                    else if(num % 6 == 3){
+                        pageOneButton.style.backgroundColor = 'white';
+                        pageTwoButton.style.backgroundColor = 'white';
+                        pageFourButton.style.backgroundColor = 'white';
+                        pageFiveButton.style.backgroundColor = 'white';
+                    }
+                    else if(num % 6 == 4){
+                        pageOneButton.style.backgroundColor = 'white';
+                        pageTwoButton.style.backgroundColor = 'white';
+                        pageThreeButton.style.backgroundColor = 'white';
+                        pageFiveButton.style.backgroundColor = 'white';
+                    }
+                    else if(num % 6 == 5){
+                        pageOneButton.style.backgroundColor = 'white';
+                        pageTwoButton.style.backgroundColor = 'white';
+                        pageThreeButton.style.backgroundColor = 'white';
+                        pageFourButton.style.backgroundColor = 'white';
+                    }
+                }
+
+                function setButtonColor(num){
+                    let list = [
+                        '',
+                        'pageOneButton',
+                        'pageTwoButton',
+                        'pageThreeButton',
+                        'pageFourButton',
+                        'pageFiveButton'
+                    ];
+                    if(num % 6 == 1){
+                        clearButtonColor(1);
+                        pageOneButton.style.backgroundColor = 'red';
+                    }
+                    if(num % 6 == 2){
+                        clearButtonColor(2);
+                        pageTwoButton.style.backgroundColor = 'red';
+                    }
+                    if(num % 6 == 3){
+                        clearButtonColor(3);
+                        pageThreeButton.style.backgroundColor = 'red';
+                    }
+                    if(num % 6 == 4){
+                        clearButtonColor(4);
+                        pageFourButton.style.backgroundColor = 'red';
+                    }
+                    if(num % 6 == 5){
+                        clearButtonColor(5);
+                        pageFiveButton.style.backgroundColor = 'red';
+                    }
+                }
+
+
+                // 다음 오디오 파일 재생
+                function playNextAudio() {
+                    if (currentAudioIndex < audioFiles.length) {
+                        setButtonColor(currentAudioIndex);
+                        audio.src = audioFiles[currentAudioIndex];
+                        image.src = imageFiles[currentAudioIndex];
+                        subtitleDiv.innerText = subtitleFiles[currentAudioIndex];
+                        audio.play();
+                        isPlaying = true;
+                    }
+                }
+
+                 // 창 열기 버튼 클릭 이벤트 리스너
+                showButton.addEventListener('click', () => {
+                    manual.classList.add('active');
+                    if (!isPlaying) {
+                        playNextAudio();
+                    }
+                });
+
+                // 창 닫기 버튼 클릭 이벤트 리스너
+                closeButton.addEventListener('click', () => { 
+                    clearButtonColor(-1);
+                    manual.classList.remove('active');
+                    if (isPlaying) {
+                        audio.pause();
+                        clearTimeout(timeoutId); // 대기 중인 타이머 취소
+                        isPlaying = false;
+                    }
+                    currentAudioIndex = 0;
+                    isRegression = false;
+                });
+
+                // 재생 버튼 클릭 이벤트 리스너
+                playButton.addEventListener('click', () => {
+                    if (!isPlaying) {
+                        playNextAudio();
+                    } 
+                    else if (audio.paused) {
+                        if(four_five_pause){
+                            currentAudioIndex = 4;
+                            four_five_pause = false;
+                            playNextAudio();
+                        }
+                        else{
+                            audio.play();  // 일시정지된 오디오 다시 재생
+                        }
+                        
+                    }
+                });
+
+                // 일시정지 버튼 클릭 이벤트 리스너
+                pauseButton.addEventListener('click', () => {
+                    if (isPlaying && !audio.paused) {
+                        audio.pause(); // 오디오 일시정지
+                    }
+                });
+
+                // 다음 버튼 클릭 이벤트 리스너
+                // nextCPRButton.addEventListener('click', () => {
+                //     audio.pause();
+                //     if(currentAudioIndex == 5){
+                //         currentAudioIndex = 3;
+                //         isRegression = true;
+                //     }
+                //     else{
+                //         currentAudioIndex++;
+                //     }
+                //     playNextAudio();
+                // });
+
+                // 이전 버튼 클릭 이벤트 리스너
+                // prevCPRButton.addEventListener('click', () => {
+                //     audio.pause();
+                //     if(isRegression == true && currentAudioIndex == 3){
+                //         currentAudioIndex = 5;
+                //     }
+                //     else if(currentAudioIndex > 0){
+                //         currentAudioIndex--;
+                //     }
+
+                //     playNextAudio();
+                // });
+
+                pageOneButton.addEventListener('click', () => {
+                    audio.pause();
+                    currentAudioIndex = 1;
+                    playNextAudio();
+                });
+                pageTwoButton.addEventListener('click', () => {
+                    audio.pause();
+                    currentAudioIndex = 2;
+                    playNextAudio();
+                });
+                pageThreeButton.addEventListener('click', () => {
+                    audio.pause();
+                    currentAudioIndex = 3;
+                    playNextAudio();
+                });
+                pageFourButton.addEventListener('click', () => {
+                    audio.pause();
+                    currentAudioIndex = 4;
+                    playNextAudio();
+                });
+                pageFiveButton.addEventListener('click', () => {
+                    audio.pause();
+                    currentAudioIndex = 5;
+                    playNextAudio();
+                });
+
+            });
+        </script>
+    </body>
+</html>

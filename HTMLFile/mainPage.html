@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="../CSSFile/semantics.css">
+        <link rel="stylesheet" href="../CSSFile/nowLocation.css">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+        <title>Document</title>
+        <style>
+            .buttonSection{
+                height: 85%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around; /* 공간을 균등하게 분배 */
+            }
+
+            .button_link{
+                height: 40%;
+                margin: 20px;
+                padding: 10px;
+                font-size: 16px;
+                color: white;
+                background-color: #E43A3A; /* 버튼의 배경색 */
+                text-align: center;
+                text-decoration: none;
+                border-radius: 20px; /* 모서리 둥글게 */
+                transition: background-color 0.3s ease;
+            }
+
+            .button_link:hover {
+                background-color: #B62E2E; /* 호버 시 버튼 배경색 */
+            }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            심정지 환자 발생시 메뉴얼
+        </header>
+        <main>
+            <section class="buttonSection">
+                <a href="guidePage_1.html", class="button_link">
+                    <img src="../media/icon_guide.png" height="80%"><br>
+                    <span style="font-size: 30px;">가이드라인</span>
+                </a>
+                <a href="FindAED.html", class="button_link">
+                    <img src="../media/icon_map.png" height="80%"><br>
+                    <span style="font-size: 30px;">AED 위치 찾기</span>
+                </a>
+            </section>
+        </main>
+        <footer>
+            <p>긴급 연락처: <a href='tel:119'>119</a> | 의료 긴급 상황: <a href='tel:1339'>1339</a></p>
+        </footer>
+    </body>
+</html>
