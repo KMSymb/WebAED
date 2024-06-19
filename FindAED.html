@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindAED</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../CSSFile/semantics.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>        
+        #map {
+            width: auto;
+            flex-grow: 1;
+        }
+        
+        main {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            margin: 0;
+            background-color: rgb(214, 214, 214);
+        }
+        
+        .titleHome{
+            width: 25px;
+            flex-grow: 1;
+            align-items: center;
+            margin-top: 2%;
+            margin-left: 1%;
+        }
+
+        .customoverlay {
+            width: 300px;
+            bottom: 40px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background: white;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            font-size: 14px;
+            color: black;
+            position: relative; /* 닫기 버튼 위치를 위한 상대 위치 설정 */
+        }
+        
+        .customoverlay .title {
+            white-space: normal;
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            padding: 5px 0;            
+            margin-top: 20px;
+        }
+        
+        .customoverlay button {
+            display: block;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(255, 102, 102);
+            color: white;
+            margin-top: 5px;
+        }
+                
+        .customoverlay .closebtn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border: 0px;
+            padding: 0px;
+            margin: 0px;
+            height: 20px;
+            width: 20px;
+            background-color: white;
+            color: black;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .customoverlay .topline {
+            background-color: rgb(255, 102, 102);
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 6vh; /* 뷰포트 높이의 5% 지점에 고정 */
+            left: 2vw; /* 뷰포트 너비의 2% 지점에 고정 */
+            padding: 5px 5px;
+            font-size: 16px;
+            background-color: rgb(255, 102, 102);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: rgb(255, 102, 102);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        심정지 환자 발생시 메뉴얼
+    </header>
+    <main>
+        <button class="back-button" onclick="history.back()"><img src="../media/icon_back.png"></button>
+        <div id="map"></div>
+        <div id="routeInfo" style="position: absolute; bottom: 10px; left: 10px; background: white; padding: 10px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.3);"></div>
+    </main>
+    <footer>
+        <p>긴급 연락처: <a href='tel:119'>119</a> | 의료 긴급 상황: <a href='tel:1339'>1339</a></p>
+    </footer>
+    <div id="myModal" class="modal">
+        <div class="modal-content" >
+            <p>주변에 AED가 없습니다.<br>다음 단계로 진행해주세요.</p>
+            <button onclick="history.back()">확인</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=047d2413f56196438f508d6b496dd9ed&libraries=services"></script>
+    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=WiHftSul0k9KQuIGsY2qy34zYq3d2pkB7UXEAGF0"></script>
+    <script src="../JSFile/initiallize_Map.js"></script>
+    <script src="../JSFile/get_current_location.js"></script>
+
+    <script>
+        // Modal handling
+        function openModal() {
+            document.getElementById('myModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

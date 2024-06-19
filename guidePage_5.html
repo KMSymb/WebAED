@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="../CSSFile/semantics.css">
+        <link rel="stylesheet" href="../CSSFile/guidePage.css">
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+        <title>Document</title>
+        <style>
+            .CPRButton{
+                border: none;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 80%;
+                width: 100%;
+                font-size: 33px;
+                color: white;
+                text-decoration: none;
+                background-color: #E43A3A; /* 버튼의 배경색 */
+                border-radius: 20px; /* 모서리 둥글게 */
+                transition: background-color 0.3s ease;
+            }
+
+            .CPRButton:hover{
+                background-color: #B62E2E;
+            }
+
+            .image{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-grow: 1;
+            }
+            .guideTable {
+                border: 2px solid black;
+                border-radius: 3px;
+            }
+            .timerButton {
+                border: 2px solid black;
+                border-radius: 5px;
+            }
+            .cancelImg {
+                width: 20px;
+                height: 20px;
+            }
+
+            #manual {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                max-height: 80vh;
+                background-color: white;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+                transform: translateY(100%);
+                overflow-y: auto;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            
+            #manual.active {
+                transform: translateY(0);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            심정지 환자 발생시 메뉴얼
+        </header>
+        <main>
+            <section class="guideSection">
+                <div class="guideTitle">
+                    <div class="titleHome"><a href="mainPage.html"><img src="../media/icon_home.png" width="30px"></a></div>
+                    <div class="titleText">AED 사용</div>
+                    <div class="titleEmpty"></div>
+                </div>
+
+                <div class="guideContent">
+                    <div class="nonExplanation">
+                        <button class="CPRButton" id="show-button">
+                            <img src="../media/icon_AED.png" width="80%">
+                            AED 사용하기
+                        </button>
+                    </div>
+                    <div class="explanation">AED를 사용한 후 다시 심폐소생술을 반복합니다</div>
+                </div>
+                <div class="guideButton">
+                    <a href="guidePage_4.html" class="button_prev">이전</a>
+                    <a href="mainPage.html" class="button_next">종료</a>
+                </div>
+                <div id="manual" style="text-align: center;">
+                    <div style="display: flex;">
+                        <span style="font-size: 25px; flex-grow: 1;">AED 가이드라인</span>
+                        <img class="cancelImg" src="../media/icon_cancel.png" onclick="manual.classList.remove('active')">
+                    </div>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td class="guideTable"><img src="../media/AED_guide1.jpg" width="80%"></td>
+                        </tr>
+                        <tr>
+                            <td class="guideTable"><img src="../media/AED_guide2.jpg" width="80%"></td>
+                        </tr>
+                        <tr>
+                            <td class="guideTable"><img src="../media/AED_guide3.jpg" width="80%"></td>
+                        </tr>
+                        <tr>
+                            <td class="guideTable"><img src="../media/AED_guide4.jpg" width="80%"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br>AED 사용 후, 2분간 심폐소생술을 시행합니다.<br>
+                                2분 후, AED가 다시 ③<span style="text-decoration: underline;">심장리듬 분석</span>을 시작합니다.<br>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="timerBox" style="border:3px solid black; border-radius: 10px; width: 50%; padding: 3%; margin: 5% auto;">
+                        <div id="timer_time" style="font-size: 30px;">02:00</div>
+                        <div id="timer_button">
+                            <button class="timerButton" id="timerBtn_start" onclick="startButton()">시작</button>
+                            <button class="timerButton" id="timerBtn_stop" onclick="stopButton()">정지</button>
+                            <button class="timerButton" id="timerBtn_reset" onclick="resetButton()">리셋</button>
+                        </div>
+                    </div>
+                    <button id="close-button">닫기</button>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>긴급 연락처: <a href='tel:119'>119</a> | 의료 긴급 상황: <a href='tel:1339'>1339</a></p>
+        </footer>
+
+        <audio id="audio_t" src="../media/alarm.mp3"></audio>
+        <audio id="audio_c" src="../media/CPR_Audio_5_extend.mp3" loop></audio>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const showButton = document.getElementById('show-button');
+                const closeButton = document.getElementById('close-button');
+                const manual = document.getElementById('manual');
+
+                showButton.addEventListener('click', () => {
+                    manual.classList.add('active');
+                });
+
+                closeButton.addEventListener('click', () => {
+                    manual.classList.remove('active');
+                });
+            });
+        </script>
+
+        <script>
+            const timer = document.getElementById('timer_time'),
+            timerAudio = document.getElementById('audio_t'),
+            CPRAudio = document.getElementById('audio_c');
+            let min = 1;
+            let sec = 60;
+            let cron;
+
+            function startButton() {
+                updateTimer();
+                stopButton();
+                cron = setInterval(updateTimer, 1000);
+                timer.classList.add('start');
+                CPRAudio.play();
+            }
+
+            function stopButton() {
+                clearInterval(cron);
+                timer.classList.remove('start');
+                timer.style.color = 'black';
+                timerAudio.pause();
+                CPRAudio.pause();
+            }
+
+            function resetButton() {
+                stopButton();
+                min = 1;
+                sec = 60;
+                timer.innerText = '02:00';
+                timer.classList.remove('start');
+                timer.style.color = 'black';
+                timerAudio.pause();
+                CPRAudio.pause();
+            }
+
+            function updateTimer() {
+                if (sec != 0) {
+                    sec --;
+                    if (sec >= 10) {
+                        timer.innerText = '0' + min + ':' + sec;
+                    }
+                    else {
+                        timer.innerText = '0' + min + ':0' + sec;
+                    }
+                }
+                else {
+                    if (min != 0) {
+                        min --;
+                        sec = 59;
+                        timer.innerText = '0' + min + ':' + sec;
+                    }
+                    else {
+                        clearInterval(cron);
+                        CPRAudio.pause();
+                        timerAudio.play();
+                        timer.style.color = 'red';
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
